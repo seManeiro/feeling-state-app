@@ -22,6 +22,14 @@ class NavBar extends Component {
             </Button>{" "}
           </Navbar.Brand>
         )}
+        {loggedIn && (
+          <Navbar.Brand href="/betweendates">
+            <Button variant="outlined" style={{ color: "#E6E6FA" }}>
+              {" "}
+             pdf-download
+            </Button>{" "}
+          </Navbar.Brand>
+        )}
 
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">

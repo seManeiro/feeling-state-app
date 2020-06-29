@@ -10,7 +10,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { Table, Container, Jumbotron, Button } from "react-bootstrap";
+import { Table, Jumbotron, Button } from "react-bootstrap";
 
 class FeelingsView extends Component {
   state = {
@@ -18,6 +18,7 @@ class FeelingsView extends Component {
     feelings: [],
     sortColumn: { path: "date", order: "desc" },
     userId: "",
+    showTioolTip: false,
   };
 
   async componentDidMount() {
@@ -68,11 +69,12 @@ class FeelingsView extends Component {
   };
 
   handleEdit = (feeling) => {
-    
     feelingService.sendFeelingToUpdate(feeling);
-    return this.props.history.push("/editfeeling"); 
-
+    return this.props.history.push("/editfeeling");
   };
+
+  mouseOver = () => this.setState({ showTioolTip: true });
+  mouseOut = () => this.setState({ showTioolTip: false });
 
   render() {
     const { feelings, sortColumn, isLoading } = this.state;
@@ -86,18 +88,18 @@ class FeelingsView extends Component {
     if (isLoading) return <LinearProgress color="secondary" />;
 
     return (
-      <div>
+      <div >
         <Jumbotron
           fluid
           style={{
-            flex: 1,
+            padding: '10vh',
             backgroundImage: `url(${catimage})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
           }}
         >
-          <Container className="themed-container">
+          
             <h4
               style={{
                 fontWeight: "bold",
@@ -109,7 +111,7 @@ class FeelingsView extends Component {
               Feeling States History
             </h4>
 
-            <Table striped>
+            <Table striped bordered hover>
               <thead>
                 <tr>
                   <th onClick={() => this.handleSort("level")}>
@@ -127,7 +129,7 @@ class FeelingsView extends Component {
                     <td
                       style={{
                         fontWeight: "bold",
-                        fontSize: 40,
+                        fontSize: 30,
                         backgroundSize: "cover",
                       }}
                     >
@@ -139,9 +141,12 @@ class FeelingsView extends Component {
                       </Moment>
                     </td>
                     <td
+                      onMouseOver={this.mouseOver}
+                      onMouseOut={this.mouseOut}
                       style={{
                         backgroundColor: "#FCF3FC",
                         opacity: 0.5,
+                        flex: 1,
                         borderRadius: 5,
                         whiteSpace: "pre-wrap",
                       }}
@@ -168,7 +173,9 @@ class FeelingsView extends Component {
                       <Button
                         variant="warning"
                         size="sm"
-                        onClick={() => {this.handleEdit(feeling)}}
+                        onClick={() => {
+                          this.handleEdit(feeling);
+                        }}
                       >
                         <small>update</small>
                       </Button>
@@ -177,7 +184,7 @@ class FeelingsView extends Component {
                 ))}
               </tbody>
             </Table>
-          </Container>
+          
         </Jumbotron>
       </div>
     );

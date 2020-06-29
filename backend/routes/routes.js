@@ -22,18 +22,42 @@ router.route("/feelings/create-feeling").post((req, res, next) => {
   });
 });
 
-// READ Feelings list
+// READ Feelings list for certain user
 router.route("/feelings/feelings-list").post((req, res, next) => {
-  console.log(req)
+  console.log(req);
 
-  feelingSchema.find({ 'userId': req.body.userId },(error, data) => {
+  feelingSchema.find({ userId: req.body.userId }, (error, data) => {
     if (error) {
       return next(error);
     } else {
       console.log(data);
-       return res.json(data);
+      return res.json(data);
     }
   });
+});
+
+// READ Feelings list for certain user between dates
+router.route("/feelings/betweendates").post((req, res, next) => {
+  console.log(req.url);
+  console.log(req.body);
+
+  feelingSchema.find(
+    {
+      date: {
+        $gte: req.body.fromDate,
+        $lte: req.body.toDate
+      },
+      userId: req.body.userId,
+    },
+    (error, data) => {
+      if (error) {
+        return next(error);
+      } else {
+        console.log(data);
+        return res.json(data);
+      }
+    }
+  );
 });
 
 // Get Single feeling
@@ -49,7 +73,9 @@ router.route("/feelings/edit-feeling/:id").get((req, res, next) => {
 
 // Update Feeling
 router.route("/feelings/update-feeling/:id").put((req, res, next) => {
-  feelingSchema.findByIdAndUpdate( req.params.id, {$set: req.body,},
+  feelingSchema.findByIdAndUpdate(
+    req.params.id,
+    { $set: req.body },
     (error, data) => {
       if (error) {
         console.log(error);
@@ -79,23 +105,23 @@ router.route("/newuser/register").post((req, res, next) => {
   usersSchema.findOne({ email: req.body.email }).then((user) => {
     if (user) {
       const response = res.status(400).json({ email: "Email already exists" });
-      console.log(response)
+      console.log(response);
       return response;
     } else {
       const newUser = new usersSchema({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
       });
-// Hash password before saving in database
+      // Hash password before saving in database
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
           newUser
             .save()
-            .then(user => res.json(user))
-            .catch(err => console.log(err));
+            .then((user) => res.json(user))
+            .catch((err) => console.log(err));
         });
       });
     }
@@ -130,7 +156,7 @@ router.route("/user/login").post((req, res) => {
           (err, token) => {
             res.json({
               success: true,
-              token: token
+              token: token,
             });
           }
         );
