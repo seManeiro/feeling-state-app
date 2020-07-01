@@ -23,10 +23,10 @@ class NavBar extends Component {
           </Navbar.Brand>
         )}
         {loggedIn && (
-          <Navbar.Brand href="/betweendates">
+          <Navbar.Brand href="/csvcreator">
             <Button variant="outlined" style={{ color: "#E6E6FA" }}>
               {" "}
-             pdf-download
+             csv
             </Button>{" "}
           </Navbar.Brand>
         )}

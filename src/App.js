@@ -6,7 +6,7 @@ import Home from "./components/home";
 import SignUp from "./components/users/signup.component";
 import Login from "./components/users/login.component";
 import FeelingsView from "./components/view/feelingsView";
-import BetweenDatesView from "./components/view/betweenDatesPicker";
+import CsvCreator from "./components/view/csvCreator";
 import FeelingForm from "./components/form/feelingForm";
 import FeelingEditForm from "./components/form/feelingEditForm"
 import authService from "./services/authService";
@@ -53,7 +53,7 @@ class App extends Component {
             <ProtectedRoute path="/feelingsview" component={FeelingsView} />
             <ProtectedRoute path="/addfeeling" component={FeelingForm} />
             <ProtectedRoute path="/editfeeling" component={FeelingEditForm} />
-            <ProtectedRoute path="/betweendates" component={BetweenDatesView} />
+            <ProtectedRoute path="/csvcreator" component={CsvCreator} />
             <Route path="/user/register" exact={true} component={SignUp} />
             <Route path="/user/login" exact={true} component={Login} />
           </Switch>
