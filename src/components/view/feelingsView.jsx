@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import feelingService from "../../services/feelingService";
 import http from "../../services/httpService";
-import config from "../../config/env.config.json";
 import auth from "../../services/authService";
 import catimage from "../../img/cat.png";
 import Moment from "react-moment";
@@ -11,6 +10,8 @@ import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Table, Jumbotron, Button } from "react-bootstrap";
+
+const backEndUrl = process.env.REACT_APP_BACK_END_URL;
 
 class FeelingsView extends Component {
   state = {
@@ -27,7 +28,7 @@ class FeelingsView extends Component {
       try {
         const userId = { userId: user.id };
         const { data: feelings } = await http.post(
-          config.backendUrl + "/feelings/feelings-list",
+          backEndUrl + "/feelings/feelings-list",
           userId
         );
         this.setState({ feelings, isLoading: false, userId });
@@ -42,7 +43,7 @@ class FeelingsView extends Component {
 
     try {
       await http.delete(
-        config.backendUrl + "/feelings/delete-feeling/" + feeling._id
+        backEndUrl + "/feelings/delete-feeling/" + feeling._id
       );
     } catch (ex) {
       if (ex.response && ex.response.status === 400)
@@ -108,7 +109,7 @@ class FeelingsView extends Component {
               }}
               align="center"
             >
-              Feeling States History
+              Feeling Records History
             </h4>
 
             <Table striped bordered hover>

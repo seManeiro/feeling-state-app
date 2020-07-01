@@ -1,13 +1,14 @@
 import jwtDecode from "jwt-decode";
 import http from "./httpService";
-import config from "../config/env.config.json";
+
+const backEndUrl = process.env.REACT_APP_BACK_END_URL;
 
 const tokenKey = "token";
 
 http.setAuthToken(getJwt());
 
 async function registerUser(user) {
-  const res = await http.post(config.backendUrl + "/newuser/register", {
+  const res = await http.post(backEndUrl + "/newuser/register", {
     username: user.username,
     email: user.email,
     password: user.password,
@@ -34,7 +35,7 @@ function logout() {
 }
 
 async function login(email, password) {
-  const { data } = await http.post(config.backendUrl + "/user/login", {
+  const { data } = await http.post(backEndUrl + "/user/login", {
     email: email,
     password: password,
   });

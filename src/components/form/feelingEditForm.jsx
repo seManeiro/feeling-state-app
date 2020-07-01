@@ -3,7 +3,6 @@ import FormAbs from "./form";
 import FeelingFormView from "./feelingFromPreview";
 import feelingService from "../../services/feelingService";
 import http from "../../services/httpService";
-import config from "../../config/env.config.json";
 import catimage from "../../img/cat.png";
 import {
   Form,
@@ -12,6 +11,8 @@ import {
   Container,
   Button,
 } from "react-bootstrap";
+
+const backEndUrl = process.env.REACT_APP_BACK_END_URL;
 
 class FeelingEditForm extends FormAbs {
   constructor() {
@@ -42,7 +43,7 @@ class FeelingEditForm extends FormAbs {
     console.log(feeling);
 
     await http.put(
-      config.backendUrl + "/feelings/update-feeling/" + this.state.feeling._id,
+      backEndUrl + "/feelings/update-feeling/" + this.state.feeling._id,
       feeling
     );
   };

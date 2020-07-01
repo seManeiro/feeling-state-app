@@ -2,7 +2,7 @@ import React from "react";
 import FormAbs from './form'
 import FeelingFormView from "./feelingFromPreview";
 import http from "../../services/httpService";
-import config from "../../config/env.config.json";
+
 import catimage from "../../img/cat.png";
 import {
   Form,
@@ -11,6 +11,8 @@ import {
   Container,
   Button,
 } from "react-bootstrap";
+
+const backEndUrl = process.env.REACT_APP_BACK_END_URL;
 
 class FeelingForm extends FormAbs {
   constructor() {
@@ -27,7 +29,7 @@ class FeelingForm extends FormAbs {
   }
 
   doSubmit = async (feeling) =>{
-    await http.post(config.backendUrl + "/feelings/create-feeling", feeling);
+    await http.post(backEndUrl + "/feelings/create-feeling", feeling);
   }
 
   render() {

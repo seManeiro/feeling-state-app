@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import http from "../../services/httpService";
-import config from "../../config/env.config.json";
+
 import auth from "../../services/authService";
 import catimage from "../../img/cat.png";
 import TextField from "@material-ui/core/TextField";
@@ -11,6 +11,8 @@ import _ from "lodash";
 import { CSVLink } from "react-csv";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+const backEndUrl = process.env.REACT_APP_BACK_END_URL;
 
 class CsvCreator extends Component {
   state = {
@@ -64,7 +66,7 @@ class CsvCreator extends Component {
 
     try {
       const { data: feelings } = await http.post(
-        config.backendUrl + "/feelings/betweendates",
+        backEndUrl + "/feelings/betweendates",
         req
       );
 
