@@ -206,7 +206,7 @@ class CsvCreator extends Component {
                     <td
                       style={{
                         fontWeight: "bold",
-                        fontSize: 30,
+                        fontSize: 15,
                         backgroundSize: "cover",
                       }}
                     >

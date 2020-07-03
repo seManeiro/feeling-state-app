@@ -8,7 +8,7 @@ class NavBar extends Component {
     const { user, loggedIn, onLogout } = this.props;
 
     return (
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="dark" expand="lg" variant="dark">
         <Navbar.Brand href="/">
           <Button variant="outlined" style={{ color: "#E6E6FA" }}>
             Feelins State Metrics

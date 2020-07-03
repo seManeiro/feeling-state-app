@@ -45,7 +45,7 @@ class FeelingForm extends FormAbs {
       >
         <Container
           fluid
-          style={{ padding: 100, width: "devicewidth", initialScale: 1 }}
+          style={{ padding: 20, width: "devicewidth", initialScale: 1 }}
         >
           <Form>
             <Form.Group controlId="exampleForm.SelectCustom">

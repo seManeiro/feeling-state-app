@@ -9,7 +9,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { Table, Jumbotron, Button } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 
 const backEndUrl = process.env.REACT_APP_BACK_END_URL;
 
@@ -42,9 +42,7 @@ class FeelingsView extends Component {
     this.setState({ feelings: feelings });
 
     try {
-      await http.delete(
-        backEndUrl + "/feelings/delete-feeling/" + feeling._id
-      );
+      await http.delete(backEndUrl + "/feelings/delete-feeling/" + feeling._id);
     } catch (ex) {
       if (ex.response && ex.response.status === 400)
         alert("This feeling state has already been deleted.");
@@ -89,104 +87,98 @@ class FeelingsView extends Component {
     if (isLoading) return <LinearProgress color="secondary" />;
 
     return (
-      <div >
-        <Jumbotron
-          fluid
+      <div
+        style={{
+          backgroundImage: `url(${catimage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          padding: 5
+        }}
+      >
+        <h4
           style={{
-            padding: '10vh',
-            backgroundImage: `url(${catimage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
+            fontWeight: "bold",
+            padding: 5,
+            align: "center",
           }}
+          align="center"
         >
-          
-            <h4
-              style={{
-                fontWeight: "bold",
-                padding: 5,
-                align: "center",
-              }}
-              align="center"
-            >
-              Feeling Records History
-            </h4>
+          Feeling Records History
+        </h4>
 
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th onClick={() => this.handleSort("level")}>
-                    Feeling Level {this.renderSortIcon("level")}
-                  </th>
-                  <th onClick={() => this.handleSort("date")}>
-                    Date {this.renderSortIcon("date")}
-                  </th>
-                  <th>Comments</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sortedFeelings.map((feeling) => (
-                  <tr key={feeling._id}>
-                    <td
-                      style={{
-                        fontWeight: "bold",
-                        fontSize: 30,
-                        backgroundSize: "cover",
-                      }}
-                    >
-                      {feeling.level}
-                    </td>
-                    <td>
-                      <Moment format="D MMM YYYY" withTitle>
-                        {feeling.date}
-                      </Moment>
-                    </td>
-                    <td
-                      onMouseOver={this.mouseOver}
-                      onMouseOut={this.mouseOut}
-                      style={{
-                        backgroundColor: "#FCF3FC",
-                        opacity: 0.5,
-                        flex: 1,
-                        borderRadius: 5,
-                        whiteSpace: "pre-wrap",
-                      }}
-                    >
-                      {feeling.comment}
-                    </td>
-                    <td value={feeling._id}>
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        onClick={() => {
-                          if (
-                            window.confirm(
-                              "Are you sure you wish to delete this feeling?"
-                            )
-                          )
-                            this.handleRemove(feeling);
-                        }}
-                      >
-                        <DeleteIcon fontSize="small" />
-                      </Button>
-                    </td>
-                    <td value={feeling._id}>
-                      <Button
-                        variant="warning"
-                        size="sm"
-                        onClick={() => {
-                          this.handleEdit(feeling);
-                        }}
-                      >
-                        <small>update</small>
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          
-        </Jumbotron>
+        <Table>
+          <thead>
+            <tr>
+              <th onClick={() => this.handleSort("level")}>
+                Feeling Level {this.renderSortIcon("level")}
+              </th>
+              <th onClick={() => this.handleSort("date")}>
+                Date {this.renderSortIcon("date")}
+              </th>
+              <th>Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedFeelings.map((feeling) => (
+              <tr key={feeling._id}>
+                <td
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 15,
+                  }}
+                >
+                  {feeling.level}
+                </td>
+                <td>
+                  <Moment format="D MMM YYYY" withTitle>
+                    {feeling.date}
+                  </Moment>
+                </td>
+                <td
+                  onMouseOver={this.mouseOver}
+                  onMouseOut={this.mouseOut}
+                  style={{
+                    backgroundColor: "#FCF3FC",
+                    opacity: 0.5,
+                    flex: 1,
+                    borderRadius: 5,
+                    whiteSpace: "pre-wrap",
+                  }}
+                >
+                  {feeling.comment}
+                </td>
+                <td value={feeling._id}>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          "Are you sure you wish to delete this feeling?"
+                        )
+                      )
+                        this.handleRemove(feeling);
+                    }}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </Button>
+                </td>
+                <td value={feeling._id}>
+                  <Button
+                    variant="warning"
+                    size="sm"
+                    onClick={() => {
+                      this.handleEdit(feeling);
+                    }}
+                  >
+                    <small>update</small>
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </div>
     );
   }
