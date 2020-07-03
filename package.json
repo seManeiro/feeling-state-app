@@ -2,6 +2,9 @@
     "name": "feeling-state-app",
     "main": "index.js",
     "version": "0.1.0",
+    "engines": {
+        "node": "12.11.1"
+    },
     "private": true,
     "dependencies": {
         "@date-io/date-fns": "^1.3.13",
