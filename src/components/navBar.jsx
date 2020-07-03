@@ -11,7 +11,7 @@ class NavBar extends Component {
       <Navbar bg="dark" expand="lg" variant="dark">
         <Navbar.Brand href="/">
           <Button variant="outlined" style={{ color: "#E6E6FA" }}>
-            Feelins State Metrics
+            Feelings State
           </Button>
         </Navbar.Brand>
         {loggedIn && (
