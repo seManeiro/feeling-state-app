@@ -172,7 +172,7 @@ class FeelingsView extends Component {
                       this.handleEdit(feeling);
                     }}
                   >
-                    <small>update</small>
+                    <small>edit</small>
                   </Button>
                 </td>
               </tr>

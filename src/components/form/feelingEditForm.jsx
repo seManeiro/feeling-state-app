@@ -8,7 +8,6 @@ import {
   Form,
   InputGroup,
   FormControl,
-  Container,
   Button,
 } from "react-bootstrap";
 
@@ -32,16 +31,12 @@ class FeelingEditForm extends FormAbs {
   componentDidMount() {
     try {
       const feeling = feelingService.fetchFeelingToUpdate();
-      console.log("FeelingEditForm.componentDidMount");
-      console.log(feeling);
       this.setState({ feeling });
     } catch (ex) {}
   }
 
   doSubmit = async (feeling) => {
-    console.log(this.state.feeling._id);
-    console.log(feeling);
-
+ 
     await http.put(
       backEndUrl + "/feelings/update-feeling/" + this.state.feeling._id,
       feeling
@@ -49,8 +44,6 @@ class FeelingEditForm extends FormAbs {
   };
 
   fetchFeelingToUpdate = (feeling) => {
-    console.log("FeelingEditForm.fetchFeelingToUpdate");
-    console.log(feeling);
     this.setState({ feeling });
   };
 
@@ -63,12 +56,11 @@ class FeelingEditForm extends FormAbs {
           backgroundImage: `url(${catimage})`,
           backgroundSize: "cover",
           height: 1000,
+          width: "devicewidth",
+          padding: 5
         }}
       >
-        <Container
-          fluid
-          style={{ padding: 100, width: "devicewidth", initialScale: 1 }}
-        >
+      
           <Form>
             <Form.Group controlId="exampleForm.SelectCustom">
               <Form.Label>Feeling state level</Form.Label>
@@ -108,6 +100,7 @@ class FeelingEditForm extends FormAbs {
             </InputGroup>
             <div style={{ padding: 20, textAlign: "right" }}>
               <FeelingFormView
+                date= {feeling.date}
                 level={feeling.level}
                 comment={feeling.comment}
               />
@@ -120,7 +113,7 @@ class FeelingEditForm extends FormAbs {
               </Button>
             </div>
           </Form>
-        </Container>
+       
       </div>
     );
   }

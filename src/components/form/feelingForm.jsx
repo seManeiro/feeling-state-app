@@ -29,12 +29,13 @@ class FeelingForm extends FormAbs {
   }
 
   doSubmit = async (feeling) =>{
+    feeling.date = new Date();
     await http.post(backEndUrl + "/feelings/create-feeling", feeling);
   }
 
   render() {
     const { feeling } = this.state;
-
+    
     return (
       <div
         style={{

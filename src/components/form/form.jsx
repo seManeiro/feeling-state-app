@@ -20,10 +20,11 @@ class FormAbs extends Component {
 
     handleChange = ({ currentTarget: input }) => {
         const feeling = { ...this.state.feeling };
-        feeling.date = new Date();
         feeling[input.name] = input.value;
         this.setState({ feeling });
       };
+
+      
 
 
     handleSubmit = async () => {
