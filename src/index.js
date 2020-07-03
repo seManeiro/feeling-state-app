@@ -6,9 +6,6 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-console.log(process.env.REACT_APP_BACK_END_URL)
-
-
 ReactDOM.render(
   <React.StrictMode>
     <App />
